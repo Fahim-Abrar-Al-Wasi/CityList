@@ -2,6 +2,7 @@ package com.example.citylist;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -27,9 +28,48 @@ public class CityList {
      * @return
      *      Return the sorted list of cities
      */
-    public List<City> getCities() {
+    public List<City> getCities(int x) {
         List<City> cityList = cities;
-        Collections.sort(cityList);
+        if(x==1)
+        {
+            Collections.sort(cityList);
+        }
+        else
+        {
+            Collections.sort(cityList, new Comparator<City>() {
+                @Override
+                public int compare(City city, City t1) {
+                    return city.getProvinceName().compareTo(t1.getProvinceName());
+                }
+            });
+        }
         return cityList;
+    }
+
+    /**
+     * This checks if a city exits and if exits then deletes the city unless throws exception.
+     * @param city
+     *         This is the city to delete
+     */
+    public void delete(City city)
+    {
+        if (!cities.contains(city))
+        {
+            throw new IllegalArgumentException();
+        }
+        else
+        {
+            cities.remove(city);
+        }
+    }
+
+    /**
+     * This counts the total number of city
+     * @return
+     *      Returns the integer value
+     */
+    public int count()
+    {
+        return cities.size();
     }
 }
